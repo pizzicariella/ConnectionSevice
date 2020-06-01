@@ -42,11 +42,13 @@ public class NToMConnectionHandler implements ConnectionHandler {
         return readNext;
     }
 
+    @Override
     public void addReceiveListener(ReceiveListener listener){
         this.receiveListeners.add(listener);
     }
 
-    public void sendMessageToAll(Object message){
+    @Override
+    public void sendMessage(Object message){
         if(activeOutputStreams.size()>0){
             long time = System.currentTimeMillis();
             int random = new Random().nextInt();

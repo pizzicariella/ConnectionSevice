@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class ReceiveListenerTest {
@@ -46,7 +45,7 @@ public class ReceiveListenerTest {
         String messageString1 = "got it?";
         byte[] message1 = messageString1.getBytes("UTF-8");
 
-        nToM1.sendMessageToAll(messageString1);
+        nToM1.sendMessage(messageString1);
         Thread.sleep(500);
     }
 }

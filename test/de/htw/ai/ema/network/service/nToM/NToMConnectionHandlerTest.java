@@ -74,7 +74,7 @@ public class NToMConnectionHandlerTest {
             nToM4.handleConnection(channelFour.getIns().get(0), channelFour.getOuts().get(0));
 
             //server to clients
-            nToM1.sendMessageToAll(messageString1);
+            nToM1.sendMessage(messageString1);
             Thread.sleep(500);
             String receivedBy2 = (String) nToM2.getLastMessage();
             String receivedBy3 = (String) nToM3.getLastMessage();
@@ -88,7 +88,7 @@ public class NToMConnectionHandlerTest {
                     messageString1, receivedBy4);
 
             //client 3 to server and other clients
-            nToM3.sendMessageToAll(messageString2);
+            nToM3.sendMessage(messageString2);
             Thread.sleep(500);
             String receivedBy1 = (String) nToM1.getLastMessage();
             receivedBy2 = (String) nToM2.getLastMessage();
