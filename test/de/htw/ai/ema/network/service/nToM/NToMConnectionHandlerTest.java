@@ -45,7 +45,7 @@ public class NToMConnectionHandlerTest {
     }
 
     @Test
-    public void testSendMessageToAll() throws InterruptedException {
+    public void testSendMessage() throws InterruptedException {
         port+=3;
         TCPConnector channelOne = new TCPConnector("One (sever) 3", port);
         TCPConnector channelTwo = new TCPConnector("client two 3", port);

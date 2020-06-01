@@ -1,7 +1,6 @@
 package de.htw.ai.ema.network.service.nToM;
 
 import org.junit.Test;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -39,8 +38,6 @@ public class ReceiveListenerTest {
 
         nToM1.handleConnection(channelOne.getIns().get(0), channelOne.getOuts().get(0));
         nToM2.handleConnection(channelTwo.getIns().get(0), channelTwo.getOuts().get(0));
-        //nToM1.handleConnections(channelOne.getIns(), channelOne.getOuts());
-        //nToM2.handleConnections(channelTwo.getIns(), channelTwo.getOuts());
 
         String messageString1 = "got it?";
         byte[] message1 = messageString1.getBytes("UTF-8");

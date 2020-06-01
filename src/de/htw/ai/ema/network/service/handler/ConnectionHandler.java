@@ -1,7 +1,6 @@
 package de.htw.ai.ema.network.service.handler;
 
 import de.htw.ai.ema.network.service.listener.ReceiveListener;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -36,5 +35,4 @@ public interface ConnectionHandler {
      *                     this to false leaves them open for further use.
      */
     public void unhandleConnections(boolean closeStreams);
-
 }
