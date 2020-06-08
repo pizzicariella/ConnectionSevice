@@ -126,7 +126,7 @@ public class NToMConnectionHandlerTest {
         }
     }
 
-    @Test
+    /*@Test
     public void testUnhandleConnections(){
         port+=4;
         TCPConnector channelOne = new TCPConnector("One (sever) 4", port);
@@ -158,5 +158,5 @@ public class NToMConnectionHandlerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

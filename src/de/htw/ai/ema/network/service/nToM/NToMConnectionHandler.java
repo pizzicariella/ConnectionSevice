@@ -62,7 +62,6 @@ public class NToMConnectionHandler implements ConnectionHandler {
             for(Entry<Integer, OutputStream> entry: activeOutputStreams.entrySet()){
                 try {
                     pdu.writePDU(entry.getValue());
-                    System.out.println("message sent");
                 } catch (IOException e) {
                     System.out.println("Error writing pdu");
                     e.printStackTrace();
@@ -86,11 +85,10 @@ public class NToMConnectionHandler implements ConnectionHandler {
         int id = readNext++;
         this.activeOutputStreams.put(id, out);
         this.activeReaders.put(id, new NToMReader(id, in));
-        System.out.println("created reader");
         this.activeReaders.get(this.activeReaders.size()-1).start();
     }
 
-    @Override
+    /*@Override
     public void unhandleConnections(boolean closeStreams) {
         if(closeStreams){
             for(OutputStream out: this.activeOutputStreams.values()){
@@ -107,7 +105,7 @@ public class NToMConnectionHandler implements ConnectionHandler {
             reader.cancel(closeStreams);
         }
         this.activeReaders.clear();
-    }
+    }*/
 
     private synchronized void handlePDU(PDU pdu, NToMReader reader){
         if(this.usedIds.contains(pdu.id)){

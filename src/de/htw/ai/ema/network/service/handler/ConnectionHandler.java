@@ -34,5 +34,5 @@ public interface ConnectionHandler {
      * @param closeStreams boolean: if set to true, active Input- and Outputstreams of Handler will be closed. Setting
      *                     this to false leaves them open for further use.
      */
-    public void unhandleConnections(boolean closeStreams);
+    //public void unhandleConnections(boolean closeStreams);
 }
