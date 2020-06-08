@@ -4,7 +4,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import static org.junit.Assert.*;
 
 public class NToMConnectionHandlerTest {
@@ -62,8 +61,14 @@ public class NToMConnectionHandlerTest {
             channelThree.waitForConnection();
             channelFour.waitForConnection();
 
-            String messageString1 = "hello all";
-            String messageString2 = "hello on the other side";
+            String message1 = "hello all";
+            String message2 = "hello on the other side";
+            String message3 = "I forgot to tell you...";
+
+            String receivedBy1 = null;
+            String receivedBy2 = null;
+            String receivedBy3 = null;
+            String receivedBy4 = null;
 
             for(int i = 0; i<channelOne.getIns().size(); i++){
                 nToM1.handleConnection(channelOne.getIns().get(i), channelOne.getOuts().get(i));
@@ -74,32 +79,48 @@ public class NToMConnectionHandlerTest {
             nToM4.handleConnection(channelFour.getIns().get(0), channelFour.getOuts().get(0));
 
             //server to clients
-            nToM1.sendMessage(messageString1);
+            nToM1.sendMessage(message1);
             Thread.sleep(500);
-            String receivedBy2 = (String) nToM2.getLastMessage();
-            String receivedBy3 = (String) nToM3.getLastMessage();
-            String receivedBy4 = (String) nToM4.getLastMessage();
+            receivedBy2 = (String) nToM2.getLastMessage();
+            receivedBy3 = (String) nToM3.getLastMessage();
+            receivedBy4 = (String) nToM4.getLastMessage();
 
             assertEquals("nToM2 didn't receive the correct message",
-                    messageString1, receivedBy2);
+                    message1, receivedBy2);
             assertEquals("nToM3 didn't receive the correct message",
-                    messageString1, receivedBy3);
+                    message1, receivedBy3);
             assertEquals("nToM4 didn't receive the correct message",
-                    messageString1, receivedBy4);
+                    message1, receivedBy4);
 
             //client 3 to server and other clients
-            nToM3.sendMessage(messageString2);
+            nToM3.sendMessage(message2);
             Thread.sleep(500);
-            String receivedBy1 = (String) nToM1.getLastMessage();
+            receivedBy1 = (String) nToM1.getLastMessage();
             receivedBy2 = (String) nToM2.getLastMessage();
             receivedBy4 = (String) nToM4.getLastMessage();
 
             assertEquals("server nToM1 didn't receive the correct message",
-                    messageString2, receivedBy1);
+                    message2, receivedBy1);
             assertEquals("client nToM2 didn't receive the correct message",
-                    messageString2, receivedBy2);
+                    message2, receivedBy2);
             assertEquals("client nToM4 didn't receive the correct message",
-                    messageString2, receivedBy4);
+                    message2, receivedBy4);
+
+
+            //server sending second message
+            nToM1.sendMessage(message3);
+            Thread.sleep(500);
+            receivedBy2 = (String) nToM2.getLastMessage();
+            receivedBy3 = (String) nToM3.getLastMessage();
+            receivedBy4 = (String) nToM4.getLastMessage();
+
+            assertEquals("nToM2 didn't receive the correct message the second time",
+                    message3, receivedBy2);
+            assertEquals("nToM3 didn't receive the correct message the second time",
+                    message3, receivedBy3);
+            assertEquals("nToM4 didn't receive the correct message the second time",
+                    message3, receivedBy4);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -118,6 +139,7 @@ public class NToMConnectionHandlerTest {
             channelOne.waitForConnection();
             channelTwo.waitForConnection();
             channelThree.waitForConnection();
+
             for(int i = 0; i<channelOne.getIns().size(); i++){
                 nToM1.handleConnection(channelOne.getIns().get(i), channelOne.getOuts().get(i));
             }

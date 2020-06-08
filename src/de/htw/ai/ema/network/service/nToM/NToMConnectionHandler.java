@@ -62,6 +62,7 @@ public class NToMConnectionHandler implements ConnectionHandler {
             for(Entry<Integer, OutputStream> entry: activeOutputStreams.entrySet()){
                 try {
                     pdu.writePDU(entry.getValue());
+                    System.out.println("message sent");
                 } catch (IOException e) {
                     System.out.println("Error writing pdu");
                     e.printStackTrace();
@@ -83,8 +84,9 @@ public class NToMConnectionHandler implements ConnectionHandler {
     @Override
     public void handleConnection(InputStream in, OutputStream out) throws IOException {
         int id = readNext++;
-        this.activeReaders.put(id, new NToMReader(id, in));
         this.activeOutputStreams.put(id, out);
+        this.activeReaders.put(id, new NToMReader(id, in));
+        System.out.println("created reader");
         this.activeReaders.get(this.activeReaders.size()-1).start();
     }
 
@@ -114,7 +116,7 @@ public class NToMConnectionHandler implements ConnectionHandler {
             Object message = pdu.getMessage();
             //for Test:
             //String received = new String(message, StandardCharsets.UTF_8).trim();
-            System.out.println(this.name+" received message: "+ message);
+            System.out.println(this.name+" received message of type: "+ message.getClass());
             this.lastMessage = message;
             for(ReceiveListener rl: this.receiveListeners){
                 rl.onReceive(message);
@@ -137,6 +139,7 @@ public class NToMConnectionHandler implements ConnectionHandler {
 
     private class NToMReader extends Thread{
         private final InputStream in;
+        //private ObjectInputStream objectIn;
         private final int id;
         private boolean handle;
 
@@ -186,8 +189,8 @@ public class NToMConnectionHandler implements ConnectionHandler {
         }
 
         public PDU(InputStream in) throws IOException{
-            ObjectInputStream objectIn = new ObjectInputStream(in);
             try {
+                ObjectInputStream objectIn = new ObjectInputStream(in);
                 this.message = (Object) objectIn.readObject();
             } catch (ClassNotFoundException e) {
                 System.out.println("Class was not found.");
