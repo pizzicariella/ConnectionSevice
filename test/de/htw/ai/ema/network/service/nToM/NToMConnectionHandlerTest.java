@@ -125,38 +125,4 @@ public class NToMConnectionHandlerTest {
             e.printStackTrace();
         }
     }
-
-    /*@Test
-    public void testUnhandleConnections(){
-        port+=4;
-        TCPConnector channelOne = new TCPConnector("One (sever) 4", port);
-        TCPConnector channelTwo = new TCPConnector("client two 4", port);
-        TCPConnector channelThree = new TCPConnector("client three 2", port);
-        channelOne.accept();
-        channelTwo.connect();
-        channelThree.connect();
-        try {
-            channelOne.waitForConnection();
-            channelTwo.waitForConnection();
-            channelThree.waitForConnection();
-
-            for(int i = 0; i<channelOne.getIns().size(); i++){
-                nToM1.handleConnection(channelOne.getIns().get(i), channelOne.getOuts().get(i));
-            }
-
-            nToM2.handleConnection(channelTwo.getIns().get(0), channelTwo.getOuts().get(0));
-            nToM3.handleConnection(channelThree.getIns().get(0), channelThree.getOuts().get(0));
-
-            nToM1.unhandleConnections(false);
-
-            int activeReadersAfter = nToM1.getActiveReaders().size();
-            int activeOutputStreamsAfter = nToM1.getActiveOutputStreams().size();
-
-            assertEquals("Handler still contains Readers", 0, activeReadersAfter);
-            assertEquals("Handler still contains OutputStreams", 0, activeOutputStreamsAfter);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 }
