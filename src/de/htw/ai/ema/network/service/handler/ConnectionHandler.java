@@ -27,12 +27,4 @@ public interface ConnectionHandler {
      * @param listener
      */
     public void addReceiveListener(ReceiveListener listener);
-
-    /**
-     * When this Method is called all Readers and Outputstreams are removed from the handler and thus no more messages
-     * can be received or send.
-     * @param closeStreams boolean: if set to true, active Input- and Outputstreams of Handler will be closed. Setting
-     *                     this to false leaves them open for further use.
-     */
-    //public void unhandleConnections(boolean closeStreams);
 }

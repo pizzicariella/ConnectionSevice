@@ -88,32 +88,11 @@ public class NToMConnectionHandler implements ConnectionHandler {
         this.activeReaders.get(this.activeReaders.size()-1).start();
     }
 
-    /*@Override
-    public void unhandleConnections(boolean closeStreams) {
-        if(closeStreams){
-            for(OutputStream out: this.activeOutputStreams.values()){
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    System.out.println("Could not close outputstream");
-                    e.printStackTrace();
-                }
-            }
-        }
-        this.activeOutputStreams.clear();
-        for (NToMReader reader : this.activeReaders.values()){
-            reader.cancel(closeStreams);
-        }
-        this.activeReaders.clear();
-    }*/
-
     private synchronized void handlePDU(PDU pdu, NToMReader reader){
         if(this.usedIds.contains(pdu.id)){
             System.out.println("pdu id already exists");
         } else {
             Object message = pdu.getMessage();
-            //for Test:
-            //String received = new String(message, StandardCharsets.UTF_8).trim();
             System.out.println(this.name+" received message of type: "+ message.getClass());
             this.lastMessage = message;
             for(ReceiveListener rl: this.receiveListeners){
@@ -137,7 +116,6 @@ public class NToMConnectionHandler implements ConnectionHandler {
 
     private class NToMReader extends Thread{
         private final InputStream in;
-        //private ObjectInputStream objectIn;
         private final int id;
         private boolean handle;
 
